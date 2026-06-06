@@ -1,5 +1,8 @@
 # Dig Again
 
+[![Build and test](https://github.com/Prymon/DigAgain/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/Prymon/DigAgain/actions/workflows/build-and-test.yml)
+[![Release tagged build](https://github.com/Prymon/DigAgain/actions/workflows/release-tags.yml/badge.svg)](https://github.com/Prymon/DigAgain/actions/workflows/release-tags.yml)
+
 Dig Again is a small GTNH / Minecraft 1.7.10 Forge mod that lets normal ore harvesting finish first, then probabilistically restores matching natural GregTech ores after a configurable delay.
 
 ## Target environment
@@ -72,6 +75,21 @@ If network access needs the local proxy on this Windows machine:
 
 ```bash
 JAVA_OPTS="-Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7897 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7897" ./gradlew build
+```
+
+## CI/CD
+
+This repository uses GitHub Actions based on the official GTNH ExampleMod setup:
+
+- `Build and test`: runs on pushes and pull requests to `master`/`main`.
+- `Release tagged build`: runs when a tag is pushed and publishes release artifacts through the GTNH shared workflow.
+- `Manual release`: can be started from the Actions tab with a tag input; it builds and uploads `build/libs/*.jar` to a GitHub release.
+
+Typical release flow:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
 ```
 
 ## Configuration

@@ -24,6 +24,33 @@ Expected production jar:
 build/libs/digagain-1.0.0.jar
 ```
 
+## CI/CD
+
+GitHub repository:
+
+```text
+https://github.com/Prymon/DigAgain
+```
+
+Workflows:
+
+- `.github/workflows/build-and-test.yml` delegates to the official `GTNewHorizons/GTNH-Actions-Workflows` build workflow.
+- `.github/workflows/release-tags.yml` delegates tagged releases to the official GTNH release workflow.
+- `.github/workflows/manual-release.yml` provides a simple manual release path that builds with Java 17 and uploads `build/libs/*.jar`.
+
+Before pushing CI changes, run:
+
+```bash
+JAVA_OPTS="-Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7897 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7897" ./gradlew spotlessApply build
+```
+
+After pushing, verify with:
+
+```bash
+gh run list --limit 5
+gh run view <run-id> --log-failed
+```
+
 ## Important implementation constraints
 
 - Do not cancel `BlockEvent.BreakEvent`.
