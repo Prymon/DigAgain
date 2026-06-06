@@ -79,10 +79,10 @@ JAVA_OPTS="-Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7897 -Dhttps.proxyHost=12
 
 ## CI/CD
 
-This repository uses GitHub Actions based on the official GTNH ExampleMod setup:
+This repository uses GitHub Actions with Java 25, matching the current GTNH Gradle plugin requirement:
 
-- `Build and test`: runs on pushes and pull requests to `master`/`main`.
-- `Release tagged build`: runs when a tag is pushed and publishes release artifacts through the GTNH shared workflow.
+- `Build and test`: runs `./gradlew spotlessCheck build --no-daemon` on pushes and pull requests to `master`/`main`, then uploads jar artifacts.
+- `Release tagged build`: runs when a tag is pushed and publishes `build/libs/digagain-*.jar` to a GitHub release.
 - `Manual release`: can be started from the Actions tab with a tag input; it builds and uploads `build/libs/*.jar` to a GitHub release.
 
 Typical release flow:

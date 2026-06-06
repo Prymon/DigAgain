@@ -9,5 +9,26 @@ permissions:
 
 jobs:
   release-tags:
-    uses: GTNewHorizons/GTNH-Actions-Workflows/.github/workflows/release-tags.yml@master
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+
+      - name: Make wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew spotlessCheck build --no-daemon
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/digagain-*.jar
+          fail_on_unmatched_files: true

@@ -34,9 +34,9 @@ https://github.com/Prymon/DigAgain
 
 Workflows:
 
-- `.github/workflows/build-and-test.yml` delegates to the official `GTNewHorizons/GTNH-Actions-Workflows` build workflow.
-- `.github/workflows/release-tags.yml` delegates tagged releases to the official GTNH release workflow.
-- `.github/workflows/manual-release.yml` provides a simple manual release path that builds with Java 17 and uploads `build/libs/*.jar`.
+- `.github/workflows/build-and-test.yml` runs `./gradlew spotlessCheck build --no-daemon` on Java 25 and uploads jar artifacts.
+- `.github/workflows/release-tags.yml` builds on Java 25 for pushed tags and publishes `build/libs/digagain-*.jar` to the GitHub release.
+- `.github/workflows/manual-release.yml` provides a manual release path that builds on Java 25 and uploads `build/libs/*.jar`.
 
 Before pushing CI changes, run:
 
